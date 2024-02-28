@@ -1,6 +1,6 @@
 Flask
-langchain
-openai
+langchain==0.0.348
+openai==0.28
 python-dotenv
 PyPDF2
 python-docx
