@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q&A System</title>
+    <link rel="stylesheet" type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/all.css">
+</head>
+<body>
+    <h1>Q&A System</h1>
+    <form enctype = "multipart/form-data" action = "/upload_file" method = "post" accept-charset="UTF-8" id="upload-form">
+        <label for="file-upload" class="upload-button">選擇檔案</label>
+        <input id="file-upload" type="file" name="filename" class="file-upload" multiple hidden/>
+        <input type="submit" value="上傳檔案" class="submit-button" />
+    </form>
+    <div class="wrap">
+        <div class="left-navbar">   
+            <ul class="file-list"></ul>
+            <div class="similar-area">
+                <h2>相似問題</h2>
+                <ul class="similar"></ul>
+            </div>
+        </div>
+        <div class="chat-area">
+            <div class="chat-history">
+            </div>
+            <form action="/get_response" method = "post" accept-charset="UTF-8" id="chat-form">
+                <input type="text" class="user-input" placeholder="Ask a question..." name="user_input">
+                <button type="submit" class="send-button">Send</button>
+            </form>
+        </div>
+        
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const chatForm = document.getElementById("chat-form");
+            const userInput = document.querySelector(".user-input");
+            const chatHistory = document.querySelector(".chat-history");
+            const sendButton = document.querySelector(".send-button");
+            const deleteFileButton=document.querySelectorAll(".trashcan");
+            const fileInput = document.getElementById("file-upload");
+            const fileList=document.querySelector(".file-list");
+            const submitButton=document.querySelector(".submit-button");
+            const uploadForm = document.getElementById("upload-form");
+            const similar=document.querySelector(".similar");
+
+            //upload file
+            fileList.innerHTML="";
+            uploadForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const formData = new FormData(uploadForm);
+                    fetch("/upload_file", {
+                        method: "POST",
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const filenames = data.filenames;
+                        const extensions = data.extensions;
+                        fileList.innerHTML = ""; // Clear previous file list
+                        for (let i = 0; i < filenames.length; i++) {
+                            const listItem = document.createElement("li");
+                            if(extensions[i]=='.docx'){
+                                listItem.innerHTML ="<i class='far fa-file-word'></i>"+filenames[i];
+                            }
+                            else if(extensions[i]=='.pdf'){
+                                listItem.innerHTML="<i class='fa-regular fa-file-pdf'></i>"+filenames[i];
+                            }
+                            fileList.appendChild(listItem);
+                            console.log(fileList);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+            
+            //Display chat
+            chatForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const userMessage = userInput.value;
+                console.log(userMessage);
+                if (userMessage.trim() !== "") {
+                    similar.innerHTML="";
+                    const userMessageDiv = document.createElement("div");
+                    userMessageDiv.classList.add("message", "user");
+                    //userMessageDiv.textContent = userMessage;
+                    userMessageDiv.innerHTML = "<i class='fa-solid fa-user'></i><p>" + userMessage + "</p>";
+                    chatHistory.appendChild(userMessageDiv);
+                    console.log(chatHistory);
+                    fetch("/get_response", {
+                        method: "POST",
+                        body: new URLSearchParams({ user_input: userMessage }),
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        //response
+                        const assistantMessage = data.response.response;
+                        const assistantMessageDiv = document.createElement("div");
+                        assistantMessageDiv.classList.add("message", "assistant");
+                        assistantMessageDiv.innerHTML =" <i class='fa-solid fa-comment'></i><p>"+assistantMessage+"</p>";
+                        chatHistory.appendChild(assistantMessageDiv);
+
+                        //top N similar questions
+                        const topQ=data.top_three;
+                        var values = Object.values(topQ);
+                        for(num=0; num<values.length; num++){
+                            console.log(values[num]);
+                            topQDiv=document.createElement("li");
+                            topQDiv.textContent=`${values[num]['Q']}`;
+                            similar.append(topQDiv);
+                        }
+
+                    });
+                    userInput.value = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

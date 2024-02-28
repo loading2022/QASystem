@@ -1,0 +1,200 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/*Reset CSS start*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*Reset CSS end*/
+
+body {
+    line-height: 1;
+    height: 100vh;
+    background-color: #F7F8FC;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.upload-button {
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+.upload-button:hover {
+    background-color: #CFD9E6;
+    color: black;
+    cursor: pointer;
+}
+
+.left-navbar {
+    width: 20%;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.file-list{
+    overflow-y: auto;
+    height: 30vh;
+}
+
+.file-list li {
+    margin-top: 20px;
+}
+
+.similar-area{
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 30vh;
+}
+.similar-area h2{
+    font-weight: bold;
+}
+
+.similar li{
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.chat-area {
+    max-width: 850px;
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.message {
+    margin: 5px 0px;
+    width: fit-content;
+    border-radius: 3px;
+}
+.user {
+    text-align: right;
+    float: right;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.fa-user {
+    padding: 20px;
+    font-size: larger;
+}
+.user p {
+    background-color: #CFD9E6;
+    margin-right: 10px;
+    padding: 20px;
+}
+.assistant {
+    clear: both;
+    display: flex;
+}
+.fa-comment {
+    padding: 20px;
+    font-size: larger;
+}
+.assistant p {
+    background-color: #D0CFE6;
+    margin-left: 10px;
+    border-radius: 3px;
+    padding: 20px;
+    line-height: 1.5;
+}
+.chat-history {
+    overflow-y: auto;
+    height: 65vh;
+}
+#chat-form {
+    max-width: 800px;
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    border: 1px solid #CFD9E6;
+    border-radius: 5px;
+}
+
+.send-button {
+    padding: 20px 20px;
+    font-size: 16px;
+    background-color: #CFD9E6;
+    color: black;
+    border: none;
+}
+.send-button:hover {
+    cursor: pointer;
+    background-color: gray;
+    color: #fff;
+}
+.user-input {
+    width: 92%;
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
