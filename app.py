@@ -19,11 +19,11 @@ from difflib import SequenceMatcher
 
 connect_db = pymysql.connect(
     host='localhost',
-    port=3306,
-    user='root',
-    passwd='aa0421626',
+    port=your_port,
+    user='your_username',
+    passwd='your_password',
     charset='utf8',
-    db='qa'
+    db='your_dbname'
 )
 
 with connect_db.cursor() as cursor:
@@ -41,7 +41,7 @@ with connect_db.cursor() as cursor:
     connect_db.commit()
 
 
-os.environ['OPENAI_API_KEY']='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'
+os.environ['OPENAI_API_KEY']='your_api_key'
 app = Flask(__name__)
 
 CORS(app)
