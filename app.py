@@ -41,7 +41,7 @@ with connect_db.cursor() as cursor:
     connect_db.commit()
 
 
-os.environ['OPENAI_API_KEY']='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'
+os.environ['OPENAI_API_KEY']='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'
 app = Flask(__name__)
 
 CORS(app)
