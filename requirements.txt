@@ -6,3 +6,4 @@ PyPDF2
 python-docx
 flask-cors
 faiss-cpu
+tiktoken
