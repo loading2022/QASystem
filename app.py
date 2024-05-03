@@ -11,7 +11,7 @@ from docx import Document
 from doc2docx import convert
 from werkzeug.utils import secure_filename
 from opencc import OpenCC
-import os
+import openai
 
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
