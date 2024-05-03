@@ -9,3 +9,4 @@ faiss-cpu
 opencc-python-reimplemented
 doc2docx
 tiktoken
+langchain-openai
