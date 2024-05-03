@@ -1,5 +1,5 @@
 Flask
-langchain==0.0.348
+langchain
 openai
 python-dotenv
 PyPDF2
