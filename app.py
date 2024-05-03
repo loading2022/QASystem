@@ -36,7 +36,7 @@ def get_response():
         return jsonify({'error': 'No user input provided'})
     if user_input:
         embeddings = OpenAIEmbeddings()
-        dir_path="../db/"
+        dir_path="./db/"
         new_db=None
         for db in os.listdir(dir_path):
             print(f"db name:{db}")
