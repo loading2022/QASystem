@@ -15,7 +15,7 @@ import os
 
 
 
-os.environ['OPENAI_API_KEY']='OPENAI_API_KEY'
+os.environ['OPENAI_API_KEY']=OPENAI_API_KEY
 app = Flask(__name__)
 
 
