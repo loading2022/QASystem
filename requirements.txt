@@ -1,9 +1,11 @@
 Flask
 langchain==0.0.348
-openai==0.28
+openai
 python-dotenv
 PyPDF2
 python-docx
 flask-cors
 faiss-cpu
+opencc-python-reimplemented
+doc2docx
 tiktoken
