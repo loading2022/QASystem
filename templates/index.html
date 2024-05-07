@@ -81,7 +81,16 @@
                     //userMessageDiv.textContent = userMessage;
                     userMessageDiv.innerHTML = "<i class='fa-solid fa-user'></i><p>" + userMessage + "</p>";
                     chatHistory.appendChild(userMessageDiv);
+                    const assistantMessageDiv = document.createElement("div");
                     
+                    
+                    const loader = document.createElement("div");
+                    loader.classList.add("loader","message", "assistant");
+                    
+
+                    assistantMessageDiv.innerHTML ="<i class='fa-solid fa-comment'></i><p id='res-mes'><div class='loader message assistant'></div></p>";
+                    chatHistory.appendChild(loader);
+
                     fetch("/get_response", {
                         method: "POST",
                         body: new URLSearchParams({ user_input: userMessage }),
@@ -92,8 +101,8 @@
                     .then(response => response.json())
                     .then(data => {
                         //response
+                        chatHistory.removeChild(loader);
                         const assistantMessage = data.response;
-                        const assistantMessageDiv = document.createElement("div");
                         assistantMessageDiv.classList.add("message", "assistant");
                         const escapedAssistantMessage = assistantMessage.replace(/\n/g, " ");
                         let timestamp = Date.now();
@@ -107,13 +116,14 @@
                         // 滾動到最新的回答
                         assistantMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
                         //top N similar questions
+                        /*
                         const topQ=data.top_three;
                         var values = Object.values(topQ);
                         for(num=0; num<values.length; num++){
                             topQDiv=document.createElement("li");
                             topQDiv.textContent=`${values[num]['Q']}`;
                             similar.append(topQDiv);
-                        }
+                        }*/
 
                     });
                     userInput.value = "";
