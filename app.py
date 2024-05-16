@@ -46,7 +46,10 @@ def get_response():
                 new_db.merge_from(db)
         
         docs = new_db.similarity_search(user_input)
-        llm = ChatOpenAI()
+        llm = ChatOpenAI(
+            model_name="gpt-4o",
+            temperature=0.2
+        )
 
         chain = load_qa_chain(llm, chain_type="stuff")
 
