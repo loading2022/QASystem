@@ -1,12 +1,8 @@
 Flask
 langchain
 openai
-python-dotenv
-PyPDF2
-python-docx
-flask-cors
 faiss-cpu
 opencc-python-reimplemented
-doc2docx
 tiktoken
 langchain-openai
+langchain-community
