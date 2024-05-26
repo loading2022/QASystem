@@ -1,22 +1,22 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify
 import os
-from langchain.text_splitter import CharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain_community.callbacks import get_openai_callback
 from langchain_openai import ChatOpenAI
-from PyPDF2 import PdfReader
-from docx import Document
-from doc2docx import convert
-from werkzeug.utils import secure_filename
 from opencc import OpenCC
-import openai
 
+import openai
+import io
+from openai import OpenAI
+client = OpenAI()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 app = Flask(__name__)
 
+class NamedBytesIO(io.BytesIO):
+    name = 'transcript.wav'
 
 chat_history = []
 data_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
@@ -35,7 +35,7 @@ def get_response():
         return jsonify({'error': 'No user input provided'})
     if user_input:
         embeddings = OpenAIEmbeddings()
-        dir_path="./db/"
+        dir_path="../db/"
         new_db=None
         for db in os.listdir(dir_path):
             print(f"db name:{db}")
@@ -44,10 +44,12 @@ def get_response():
                 new_db = db
             else:
                 new_db.merge_from(db)
+        #print(new_db.docstore._dict)
         
         docs = new_db.similarity_search(user_input)
         llm = ChatOpenAI(
-            model_name="gpt-4o",
+            #model_name="gpt-4o",
+            model_name="gpt-4-1106-preview",
             temperature=0.2
         )
 
@@ -60,6 +62,23 @@ def get_response():
         
         chat_history.append({'user': user_input, 'assistant': response['output_text']})
         return jsonify({'response': answer})
+
+@app.route('/upload-audio', methods=['POST'])
+def upload_audio():
+    audio_file = request.files['audio']
+    if audio_file:
+        audio_stream = NamedBytesIO(audio_file.read())
+        audio_stream.name = 'transcript.wav' 
+
+        transcript = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_stream,
+            response_format='text'
+        )
+        
+        return jsonify({'message': '音頻已處理', 'transcript': transcript})
+    return jsonify({'error': '沒有接收到音訊文件'}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')  
