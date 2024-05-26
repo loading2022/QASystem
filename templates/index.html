@@ -6,57 +6,77 @@
     <link rel="stylesheet" type="text/css" href="../static/all.css">
 </head>
 <body>
-    <h1>Q&A System</h1>
+    <h1>專業實習通 隨問隨答</h1>
     
     <div class="wrap">
-        <div class="left-navbar"> 
-            <!--  
-            <select id="folders" name="folders" onchange="sendFolder()">
-                <option value="new">new</option>
-                <option value="0319">0319</option>
-                <option value="0320">0320</option>
-                <option value="test1">test1</option>
-            </select>
-            <div class="similar-area">
-                <h2>相似問題</h2>
-                <ul class="similar"></ul>
-            </div>-->
-        </div>
+        <div class="left-navbar"></div>
         <div class="chat-area">
             <div class="chat-history">
             </div>
             <form action="/get_response" method = "post" accept-charset="UTF-8" id="chat-form">
                 <input type="text" class="user-input" placeholder="Ask a question..." name="user_input">
+                <button type="button" id = "startBtn"><i class="fa-solid fa-microphone"></i></button>
+                <button type="button" id = "stopBtn"><i class="fas fa-microphone-slash"></i></button>
                 <button type="submit" class="send-button">Send</button>
             </form>
         </div>
         
     </div>
     <script>
-        /*
-        function sendFolder(){
-            var selectedFolder = document.getElementById("folders").value;
-            
-            document.querySelector(".chat-history").innerHTML = "";
-            fetch('/selected_folder', {
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+        }
+        document.getElementById('startBtn').addEventListener('click', startRecording);
+        document.getElementById('stopBtn').addEventListener('click', stopRecording);
+
+        let mediaRecorder;
+        let audioChunks = [];
+        const userInput = document.querySelector(".user-input");
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+                    audioChunks = [];
+
+                    mediaRecorder.addEventListener('dataavailable', event => {
+                        audioChunks.push(event.data);
+                    });
+
+                    mediaRecorder.addEventListener('stop', () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        uploadAudio(audioBlob);
+                    });
+                })
+                .catch(error => console.error('錄音啟動失敗:', error));
+        }
+
+        function stopRecording() {
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());  // 停止所有軌道，關閉麥克風
+            }
+        }
+
+        function uploadAudio(blob) {
+            const formData = new FormData();
+            formData.append('audio', blob, 'recording.wav');
+
+            fetch('/upload-audio', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ folder: selectedFolder })
+                body: formData,
             })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                if (data.transcript) {
+                    userInput.value = data.transcript;
+                } else {
+                    userInput.value = '錯誤: ' + data.message;
+                }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Error:",error);
-            });
-        }
-        */
-        function copyText(text) {
-            navigator.clipboard.writeText(text);
+            .catch(error => console.error('錯誤:', error));
         }
         document.addEventListener("DOMContentLoaded", function() {
             const chatForm = document.getElementById("chat-form");
@@ -113,17 +133,7 @@
                        
                         assistantMessageDiv.innerHTML =" <i class='fa-solid fa-comment'></i><p id='res-mes'>"+assistantMessage+"<br>"+formattedDate+"</p><i class='far fa-copy' onclick='copyText(\""+escapedAssistantMessage+"\")'></i>";
                         chatHistory.appendChild(assistantMessageDiv);
-                        // 滾動到最新的回答
-                        assistantMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                        //top N similar questions
-                        /*
-                        const topQ=data.top_three;
-                        var values = Object.values(topQ);
-                        for(num=0; num<values.length; num++){
-                            topQDiv=document.createElement("li");
-                            topQDiv.textContent=`${values[num]['Q']}`;
-                            similar.append(topQDiv);
-                        }*/
+                        assistantMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });  
 
                     });
                     userInput.value = "";
