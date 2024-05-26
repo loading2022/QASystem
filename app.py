@@ -73,8 +73,9 @@ def upload_audio():
             file=audio_stream,
             response_format='text'
         )
-        
-        return jsonify({'message': '音頻已處理', 'transcript': transcript})
+        cc = OpenCC('s2t')
+        text = cc.convert(transcript)
+        return jsonify({'message': '音頻已處理', 'transcript': text})
     return jsonify({'error': '沒有接收到音訊文件'}), 400
 
 
