@@ -277,60 +277,32 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
-/*manager index*/
-.container{
-    max-width:1024px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-}
-
-.upload-button{
-    width: 100px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top:10px;
-    right:100px;
-    background-color:lightgray;
-    border-radius: 5px;
-    padding:10px;
-}
-
-.upload-button:hover {
-    background-color: #e0e0e0;
-    color: #222;
-}
-
-.file-list li{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    border-bottom: 1px solid lightgray;
-    font-size: 16px;
-    margin-left: 10px;
-    padding: 10px;
-    width: 100%;
-}
-
-.file-list li input[type="button"]{
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #a6d0fd;
+.send-button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
     border: none;
-    color:black;
-}
-
-.file-list li input[type="button"]:hover{
-    background-color: #e0e0e0;
-    color: #222;
     cursor: pointer;
 }
-
-.file-list{
-    margin-top: 50px;
-    list-style-type: none;
-    padding: 0;
+.send-button:hover {
+    background-color: #4cae4c;
+    cursor: pointer;
+}
+button {
+    vertical-align: top;
+}
+button i {
+    color: #fff;
+}
+#startBtn, #stopBtn {
+    padding: 10px 15px;
+    background-color: #337ab7;
+    border: none;
+    cursor: pointer;
+}
+#stopBtn {
+    background-color: #d9534f;
+}
+#startBtn:hover, #stopBtn:hover {
+    opacity: 0.8;
 }
