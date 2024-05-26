@@ -35,7 +35,7 @@ def get_response():
         return jsonify({'error': 'No user input provided'})
     if user_input:
         embeddings = OpenAIEmbeddings()
-        dir_path="../db/"
+        dir_path="./db/"
         new_db=None
         for db in os.listdir(dir_path):
             print(f"db name:{db}")
@@ -44,12 +44,10 @@ def get_response():
                 new_db = db
             else:
                 new_db.merge_from(db)
-        #print(new_db.docstore._dict)
-        
+
         docs = new_db.similarity_search(user_input)
         llm = ChatOpenAI(
-            #model_name="gpt-4o",
-            model_name="gpt-4-1106-preview",
+            model_name="gpt-4o",
             temperature=0.2
         )
 
