@@ -1,0 +1,271 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/*Reset CSS start*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*Reset CSS end*/
+
+body {
+    line-height: 1;
+    height: 100vh;
+    background-color: #F7F8FC;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.wrap {
+    max-width: 1296px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.left-navbar {
+    width: 20%;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.similar-area{
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 30vh;
+}
+.similar-area h2{
+    font-weight: bold;
+}
+
+.similar li{
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.chat-area {
+    max-width: 850px;
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.message {
+    margin: 5px 0px;
+    width: fit-content;
+    border-radius: 3px;
+}
+.user {
+    text-align: right;
+    float: right;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.fa-user {
+    padding: 20px;
+    font-size: larger;
+}
+.user p {
+    background-color: #CFD9E6;
+    margin-right: 10px;
+    padding: 20px;
+}
+.assistant {
+    clear: both;
+    display: flex;
+}
+.fa-comment {
+    padding: 20px;
+    font-size: larger;
+}
+.assistant p {
+    background-color: #D0CFE6;
+    margin-left: 10px;
+    border-radius: 3px;
+    padding: 20px;
+    line-height: 1.5;
+}
+.chat-history {
+    overflow-y: auto;
+    height: 65vh;
+}
+#chat-form {
+    width:70%;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    border: 1px solid #CFD9E6;
+    border-radius: 5px;
+}
+
+.user-input {
+    width: calc(100% - 90px);
+    padding: 20px;
+    border: none;
+    outline: none;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.send-button:hover {
+    background-color: #4cae4c;
+    cursor: pointer;
+}
+button {
+    vertical-align: top;
+}
+button i {
+    color: #fff;
+}
+#startBtn, #stopBtn {
+    padding: 10px 15px;
+    background-color: #337ab7;
+    border: none;
+    cursor: pointer;
+}
+#stopBtn {
+    background-color: #d9534f;
+}
+#startBtn:hover, #stopBtn:hover {
+    opacity: 0.8;
+}
+
+
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #a6d0fd;
+    color:black;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+    color:white;
+}
+
+.submit-button:active {
+    background-color: #004d99;
+    color:white;
+}
+@media (max-width: 768px) {
+    .wrap {
+        flex-direction: column;
+    }
+
+    .left-navbar {
+        width: 100%;
+        order: 2;  /* 將導航欄移到頁面底部 */
+    }
+
+    .chat-area {
+        width: 100%;
+        margin-left: 0;
+        order: 1;  /* 將聊天區域放在頂部 */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;  /* 減少邊距，增加可用空間 */
+    }
+    h1 {
+        font-size: 24px;  /* 適當減小標題字體大小 */
+    }
+    .user-input, .send-button, #startBtn, #stopBtn {
+        font-size: 18px;  /* 增大輸入和按鈕的字體大小 */
+        padding: 15px 20px;  /* 增大按鈕的填充，便於點擊 */
+    }
+    #chat-form {
+        flex-direction: column;  /* 使輸入和按鈕垂直排列 */
+        position: static;  /* 移除固定定位，允許表單隨內容滾動 */
+    }
+    .chat-history {
+        height: 50vh;  /* 調整聊天歷史的高度 */
+    }
+    .wrap {
+        height: auto;  /* 自動調整外包裝容器的高度 */
+    }
+}
