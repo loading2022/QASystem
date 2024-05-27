@@ -250,15 +250,21 @@ button i {
 }
 
 @media (max-width: 480px) {
+    .wrap{
+        height:60vh;
+    }
     h1 {
-        font-size: 24px;
+        font-size: 48px;
     }
 
     .left-navbar {
         margin-top: 10px;
     }
 
-    .similar-area, .chat-area {
+    .chat-area {
         padding: 5px;
+    }
+    #chat-form{
+        max-width:300px;
     }
 }
