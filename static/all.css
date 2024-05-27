@@ -71,7 +71,7 @@ h1 {
 }
 
 .wrap {
-    width: 100%;
+    max-width: 1296px;
     margin: 0 auto;
     display: flex;
     height:90vh;
@@ -152,7 +152,7 @@ h1 {
 }
 #chat-form {
     max-width: 800px;
-    width: 100%;
+    width:80%;
     position: fixed;
     bottom: 20px;
     display: flex;
@@ -160,108 +160,11 @@ h1 {
     border-radius: 5px;
 }
 
-.send-button {
-    padding: 20px 20px;
-    font-size: 16px;
-    background-color: #CFD9E6;
-    color: black;
-    border: none;
-}
-.send-button:hover {
-    cursor: pointer;
-    background-color: gray;
-    color: #fff;
-}
 .user-input {
-    width: 92%;
+    width: calc(100% - 90px);
     padding: 20px;
-    font-size: 16px;
     border: none;
     outline: none;
-}
-.login-button{
-    width:100px;
-    position: absolute;
-    top:10px;
-    right:20px;
-    text-decoration: none;
-    border-radius: 10px;
-    background-color:#CFD9E6;
-    padding:10px;
-    text-align: center;
-}
-.login-button:hover{
-    cursor: pointer;
-    color:black;
-    background-color: #CFD9E6;
-}
-/*login page*/
-.login {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    height: 50%;
-    padding: 50px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.login h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.email-area,
-.pwd-area {
-    width:100%;
-    margin-bottom: 20px;
-}
-
-.email-area label,
-.pwd-area label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.email-area input,
-.pwd-area input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-}
-
-.email-area input:focus,
-.pwd-area input:focus {
-    border-color:lightblue;
-    outline: none;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #a6d0fd;
-    color:black;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.submit-button:hover {
-    background-color: #0056b3;
-    color:white;
-}
-
-.submit-button:active {
-    background-color: #004d99;
-    color:white;
 }
 .loader {
     border: 5px solid #f3f3f3;
@@ -275,7 +178,7 @@ h1 {
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
+  }
 
 .send-button {
     padding: 10px 20px;
@@ -305,4 +208,57 @@ button i {
 }
 #startBtn:hover, #stopBtn:hover {
     opacity: 0.8;
+}
+
+
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #a6d0fd;
+    color:black;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+    color:white;
+}
+
+.submit-button:active {
+    background-color: #004d99;
+    color:white;
+}
+@media (max-width: 768px) {
+    .wrap {
+        flex-direction: column;
+    }
+
+    .left-navbar {
+        width: 100%;
+        order: 2;
+    }
+
+    .chat-area {
+        width: 100%;
+        margin-left: 0;
+        order: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    .left-navbar {
+        margin-top: 10px;
+    }
+
+    .similar-area, .chat-area {
+        padding: 5px;
+    }
 }
