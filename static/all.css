@@ -56,8 +56,6 @@ table {
 /*Reset CSS end*/
 
 body {
-    line-height: 1;
-    height: 100vh;
     background-color: #F7F8FC;
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -74,7 +72,6 @@ h1 {
     max-width: 1296px;
     margin: 0 auto;
     display: flex;
-    height:90vh;
 }
 
 .left-navbar {
@@ -151,9 +148,8 @@ h1 {
     height: 65vh;
 }
 #chat-form {
-    max-width: 800px;
-    width:80%;
-    position: fixed;
+    width:70%;
+    position: absolute;
     bottom: 20px;
     display: flex;
     border: 1px solid #CFD9E6;
@@ -234,37 +230,33 @@ button i {
 }
 @media (max-width: 768px) {
     .wrap {
+        max-width:768px;
         flex-direction: column;
-    }
-
-    .left-navbar {
-        width: 100%;
-        order: 2;
     }
 
     .chat-area {
         width: 100%;
         margin-left: 0;
-        order: 1;
     }
 }
 
 @media (max-width: 480px) {
-    .wrap{
-        height:60vh;
+    body {
+        padding: 10px;  /* 減少邊距，增加可用空間 */
+    }
+    .wrap {
+        max-width:768px;
     }
     h1 {
-        font-size: 48px;
+        font-size: 24px;  
     }
-
-    .left-navbar {
-        margin-top: 10px;
+    .user-input, .send-button, #startBtn, #stopBtn {
+        font-size: 18px;  /* 增大輸入和按鈕的字體大小 */
+        padding: 15px 20px;  /* 增大按鈕的填充，便於點擊 */
     }
-
-    .chat-area {
-        padding: 5px;
-    }
-    #chat-form{
+    #chat-form {
+        flex-direction: column;  /* 使輸入和按鈕垂直排列 */
+        position: static;  /* 移除固定定位，允許表單隨內容滾動 */
         max-width:300px;
     }
 }
